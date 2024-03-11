@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
 
-Route::get('/payment/{string}/{price}', [PaymentController::class, 'charge'])->name('goToPayment');
-Route::post('payment/process-payment/{string}/{price}', [PaymentController::class, 'processPayment'])->name('processPayment');
+Route::get('/payment/{plan?}', [PaymentController::class, 'charge'])->name('goToPayment');
+Route::post('payment/process-payment/', [PaymentController::class, 'processPayment'])->name('processPayment');
 Route::get('/upload-video', function () { return view('upload-video'); })->name('upload-video');
 });
