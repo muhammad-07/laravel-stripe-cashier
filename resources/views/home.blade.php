@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <a href="{{route('goToPayment', ['search list', 25])}}"><button>Upload your video for $25</button></a> &nbsp;
                 </div>
             </div>
         </div>
