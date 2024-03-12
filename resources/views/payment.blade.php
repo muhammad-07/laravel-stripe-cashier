@@ -16,7 +16,7 @@
 
                     {{ __('Make Payment!') }}
 
-                    <form action="{{route('processPayment', [$product, $price])}}" method="POST" id="subscribe-form">
+                    <form action="{{route('processPayment', ['plan' => request()->plan])}}" method="POST" id="subscribe-form">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">

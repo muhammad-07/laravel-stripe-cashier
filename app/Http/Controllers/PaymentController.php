@@ -22,6 +22,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $inttt =  $user->createSetupIntent();
         Log::info($inttt);
+        session()->put('plan', $plan);
         return view('payment', [
             'user' => $user,
             'intent' => $inttt,
@@ -30,7 +31,7 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function processPayment(Request $request)
+    public function processPayment(Request $request, $plan)
     {
         $user = Auth::user();
         $paymentMethod = $request->input('payment_method');
@@ -40,7 +41,7 @@ class PaymentController extends Controller
 
         try {
             $payment = $user->charge($this->price * 100, $paymentMethod, [
-                'return_url' => route('upload-video'),
+                'return_url' => route('upload-video', ['plan' => $plan]),
             ]);
             Log::info($payment);
             // Get the payment ID from the returned object
@@ -52,10 +53,11 @@ class PaymentController extends Controller
                 // Other payment details you may want to store
             ]);
             Log::info($paymentRecord);
-            return redirect('upload-video');
+            return redirect()->route('upload-video', ['plan' => $plan]);
+            // redirect('upload-video');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => 'Error creating subscription. ' . $e->getMessage()]);
         }
-        return redirect('homexxx');
+        return redirect('home');
     }
 }
