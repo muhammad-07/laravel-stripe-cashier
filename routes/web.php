@@ -34,3 +34,10 @@ Route::get('/upload-video', function () { return view('upload-video'); })->name(
 Route::post('/upload-video',[VideoController::class, 'upload'])->name('video.upload');
 Route::get('/thank-you',function () { return view('thanks'); })->name('thank-you');
 });
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/videos', function(){return 'admin';})->name('admin.videos.index');
+    // Route::get('/admin/videos', 'AdminVideoController@index')->name('admin.videos.index');
+Route::put('/admin/videos/{video}/status', 'AdminVideoController@updateStatus')->name('admin.videos.updateStatus');
+
+});
