@@ -17,7 +17,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>
-        .btn-primary {
+        .btn-primary, .btn-success {
 background-color: #9c6868 !important;
 border-color: #9c6868 !important;
 }
@@ -28,6 +28,7 @@ border-color: #9c6868 !important;
     background-color: #333;
     color: #fff;
 }
+
 </style>
 
     </style>
