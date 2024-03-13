@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
@@ -36,8 +37,8 @@ Route::get('/thank-you',function () { return view('thanks'); })->name('thank-you
 });
 
 Route::middleware(['role:admin'])->group(function () {
-    Route::get('/admin/videos', function(){return 'admin';})->name('admin.videos.index');
-    // Route::get('/admin/videos', 'AdminVideoController@index')->name('admin.videos.index');
-Route::put('/admin/videos/{video}/status', 'AdminVideoController@updateStatus')->name('admin.videos.updateStatus');
+    // Route::get('/admin/videos', function(){return 'admin';})->name('admin.videos.index');
+    Route::get('/admin/videos', [AdminVideoController::class, 'index'])->name('admin.videos.index');
+Route::put('/admin/videos/{video}/status', [AdminVideoController::class, 'updateStatus'])->name('admin.videos.updateStatus');
 
 });
