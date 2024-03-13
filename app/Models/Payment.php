@@ -11,7 +11,7 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'stripe_payment_id',
-        // Other fields you may want to store
+        'plan'
     ];
 
     public function user()

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_path');
             $table->string('original_name')->nullable();
             $table->string('title')->nullable();;
-            $table->string('description')->nullable();;
+            $table->text('description')->nullable();;
             $table->enum('state', ['pending', 'round-1', 'round-2', 'rejected'])->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

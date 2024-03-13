@@ -58,7 +58,7 @@ class LoginController extends Controller
             $payment = Payment::where('user_id', $user->id)->first();
 
             if ($payment) {
-                return redirect()->route('upload-video', ['payment_id' => $payment->id]);
+                return redirect()->route('upload-video', ['plan' => $payment->plan]);
             } else {
                 return redirect()->route('payment');
             }
@@ -74,11 +74,11 @@ class LoginController extends Controller
         if($user->hasRole('admin')){
             return redirect('/admin/videos');
         } else {
-            // $user = Auth::user();
+
             $payment = Payment::where('user_id', $user->id)->first();
 
             if ($payment) {
-                return redirect()->route('upload-video', ['payment_id' => $payment->id]);
+                return redirect()->route('upload-video', ['plan' => $payment->plan]);
             } else {
                 return redirect()->route('payment');
             }

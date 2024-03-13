@@ -9,17 +9,20 @@ class AdminVideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::all();
-        return view('admin.videos.index', compact('videos'));
+        $videos = Video::with('user')->get();
+        return view('admin.videos', compact('videos'));
     }
+    public function show(Video $video)
+{
+    return view('admin.show', compact('video'));
+}
 
     public function updateStatus(Request $request, Video $video)
     {
         $request->validate([
-            'status' => 'required|in:round-1,round-2,rejected',
+            'status' => 'required|in:pending,round-1,round-2,rejected',
         ]);
-
-        $video->status = $request->status;
+        $video->state = $request->status;
         $video->save();
 
         return redirect()->back()->with('success', 'Video status updated successfully.');

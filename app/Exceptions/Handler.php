@@ -26,5 +26,8 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            return redirect()->route('login')->with('error', 'You must be logged in as admin to access admin pages.');
+        });
     }
 }

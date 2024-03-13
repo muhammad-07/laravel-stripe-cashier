@@ -11,7 +11,8 @@ class VideoController extends Controller
     public function upload(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'videoFile' => 'required|mimetypes:image/*|max:204800', // Max size in kilobytes (200MB)
+            'videoTitle' => 'required',
+            'videoFile' => 'required|mimetypes:video/*|max:512000',
         ]);
 
         if ($validator->fails()) {
@@ -35,8 +36,8 @@ class VideoController extends Controller
             $video->user_id = $user->id;
             $video->file_path = $path;
             $video->original_name = $oname;
-            $video->title = $request->title;
-            $video->original_name = $request->description;
+            $video->title = $request->videoTitle;
+            $video->description = $request->videoDescription;
             $video->save();
 
             return redirect('/thank-you')->with('success', 'Video uploaded successfully.');
@@ -44,7 +45,7 @@ class VideoController extends Controller
 
         return redirect()->back()->withErrors(['message' => 'No video file found.'])->withInput();
     }
-    
+
     // Admin
     public function updateState(Request $request, Video $video)
     {

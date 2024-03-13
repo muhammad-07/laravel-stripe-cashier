@@ -24,21 +24,24 @@ Auth::routes(['verify' => true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth', 'verified']], function () {
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-Route::get('/payment/{plan?}', [PaymentController::class, 'charge'])->name('goToPayment');
-Route::post('payment/process-payment/{plan?}', [PaymentController::class, 'processPayment'])->name('processPayment');
+    Route::get('/payment/{plan?}', [PaymentController::class, 'charge'])->name('goToPayment');
+    Route::post('payment/process-payment/{plan?}', [PaymentController::class, 'processPayment'])->name('processPayment');
 
-Route::get('/upload-video', function () { return view('upload-video'); })->name('upload-video');
-Route::post('/upload-video',[VideoController::class, 'upload'])->name('video.upload');
-Route::get('/thank-you',function () { return view('thanks'); })->name('thank-you');
+    Route::get('/upload-video', function () {
+        return view('upload-video');
+    })->name('upload-video');
+    Route::post('/upload-video', [VideoController::class, 'upload'])->name('video.upload');
+    Route::get('/thank-you', function () {
+        return view('thanks');
+    })->name('thank-you');
 });
 
 Route::middleware(['role:admin'])->group(function () {
-    // Route::get('/admin/videos', function(){return 'admin';})->name('admin.videos.index');
     Route::get('/admin/videos', [AdminVideoController::class, 'index'])->name('admin.videos.index');
-Route::put('/admin/videos/{video}/status', [AdminVideoController::class, 'updateStatus'])->name('admin.videos.updateStatus');
-
+    Route::put('/admin/videos/{video}/status', [AdminVideoController::class, 'updateStatus'])->name('admin.videos.updateStatus');
+    Route::get('/admin/videos/{video}', [AdminVideoController::class, 'show'])->name('admin.videos.show');
 });

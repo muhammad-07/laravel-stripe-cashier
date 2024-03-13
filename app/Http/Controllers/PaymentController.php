@@ -22,7 +22,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $inttt =  $user->createSetupIntent();
         Log::info($inttt);
-        session()->put('plan', $plan);
+        // session()->put('plan', $plan);
         return view('payment', [
             'user' => $user,
             'intent' => $inttt,
@@ -33,6 +33,7 @@ class PaymentController extends Controller
 
     public function processPayment(Request $request, $plan)
     {
+    //    dd($plan, 'test', $request->plan);
         $user = Auth::user();
         $paymentMethod = $request->input('payment_method');
         $user->createOrGetStripeCustomer();
@@ -41,19 +42,20 @@ class PaymentController extends Controller
 
         try {
             $payment = $user->charge($this->price * 100, $paymentMethod, [
-                'return_url' => route('upload-video', ['plan' => $plan]),
+                'return_url' => route('upload-video', ['plan' => $request->plan]),
             ]);
             Log::info($payment);
             // Get the payment ID from the returned object
             $paymentId = $payment->id;
 
             // Create or update the payment record in your database
-            $paymentRecord = Payment::updateOrCreate(['stripe_payment_id' => $paymentId], [
+            $paymentRecord = Payment::updateOrCreate(['stripe_payment_id' => $paymentId, 'plan' => $request->plan], [
                 'user_id' => $user->id,
+                'plan' => $request->plan
                 // Other payment details you may want to store
             ]);
             Log::info($paymentRecord);
-            return redirect()->route('upload-video', ['plan' => $plan]);
+            return redirect()->route('upload-video', ['plan' => $request->plan]);
             // redirect('upload-video');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => 'Error creating subscription. ' . $e->getMessage()]);
