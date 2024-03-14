@@ -43,6 +43,6 @@ class AdminVideoController extends Controller
         $video->state = $request->status;
         $video->save();
 
-        return redirect()->back()->with('success', 'Video status updated successfully.');
+        return redirect()->route('admin.videos.index')->with('success', 'Video status updated successfully.');
     }
 }

@@ -151,18 +151,18 @@ button.list-group-item-primary.active {
 
 .btn-group .btn-primary,
 .input-group .btn-primary {
-  border-right: 1px solid #7344ca;
-  border-left: 1px solid #7344ca;
+  border-right: 1px solid #85536f;
+  border-left: 1px solid #85536f;
 }
 
 .btn-group-vertical .btn-primary {
-  border-top: 1px solid #7344ca;
-  border-bottom: 1px solid #7344ca;
+  border-top: 1px solid #85536f;
+  border-bottom: 1px solid #85536f;
 }
 
 .btn-outline-primary {
   color: #9c6868;
-  border-color: #c8aafe;
+  border-color: #85536f;
   background: transparent;
 }
 .btn-outline-primary.waves-effect .waves-ripple {
