@@ -49,11 +49,15 @@
                       </a>
                     </li> -->
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('admin.videos.index') }}">
                             <span class="d-flex align-items-center align-middle">
                                 <i class="flex-shrink-0 mdi mdi-credit-card-outline me-1 mdi-20px"></i>
-                                <span class="flex-grow-1 align-middle ms-1">Unviewed</span>
-                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                <span class="flex-grow-1 align-middle ms-1">Pending</span>
+                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">
+                                    <?php
+                                    echo $pendings = App\Models\Video::where('state', 'pending')->count() ?? 0;
+                                    ?>
+                                </span>
                             </span>
                         </a>
                     </li>

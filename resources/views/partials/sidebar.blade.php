@@ -4,9 +4,8 @@
               <span class="app-brand-logo demo me-1">
 
                     <img src="{{ asset('images/logo-or.png') }}" width="190px" alt="{{ config('app.name', 'The United Production') }}">
-               
+
               </span>
-              <span class="app-brand-text demo menu-text fw-semibold ms-2">TUP</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -20,7 +19,7 @@
 
             <!-- Tables -->
             <li class="menu-item active">
-              <a href="tables-basic.html" class="menu-link">
+              <a href="{{route('admin.videos.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons mdi mdi-table"></i>
                 <div data-i18n="Tables">Videos</div>
               </a>

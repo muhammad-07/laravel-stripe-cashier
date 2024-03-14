@@ -40,20 +40,35 @@
                     </div>
                 </div> -->
                 @if (session('succcess'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('succcess') }}
-                        </div>
-                    @endif
+                <div class="alert alert-success" role="alert">
+                    {{ session('succcess') }}
+                </div>
+                @endif
                 <h5 class="pb-3 border-bottom mb-3">Details</h5>
                 <div class="info-container">
                     <ul class="list-unstyled mb-4">
                         <li class="mb-3">
+                            <span class="h6">Title:</span>
+                            <span>{{ $video->title }}</span>
+                        </li>
+                        <li class="mb-3">
+                            <span class="h6">Description:</span>
+                            <span>{{ $video->description }}</span>
+                        </li>
+                        <li class="mb-3">
+                            <span class="h6">Upload Time:</span>
+                            <span>{{ $video->created_at->format('Y-m-d H:i:s') }}</span>
+                        </li>
+                    </ul>
+                    <hr/>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-3">
                             <span class="h6">Contestant Name:</span>
-                            <span>@violet.dev</span>
+                            <span>{{ $video->user->name }}</span>
                         </li>
                         <li class="mb-3">
                             <span class="h6">Email:</span>
-                            <span>vafgot@vultukir.org</span>
+                            <span>$video->user->email</span>
                         </li>
                         <li class="mb-3">
                             <span class="h6">Status:</span>
@@ -71,31 +86,34 @@
                         </li>
                         <li class="mb-3">
                             <span class="h6">Country:</span>
-                            <span>England</span>
+                            <span>United Kingdom</span>
                         </li>
                     </ul>
-                    <p><strong>Title:</strong> {{ $video->title }}</p>
-                    <p><strong>Description:</strong> {{ $video->description }}</p>
-                    <p><strong>Uploader:</strong> {{ $video->user->name }}</p>
-                    <p><strong>Upload Time:</strong> {{ $video->created_at->format('Y-m-d H:i:s') }}</p>
-                    <div class="d-flex justify-content-center">
-                        <!-- <a href="javascript:;" class="btn btn-primary me-3 waves-effect waves-light" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
-                        <a href="javascript:;" class="btn btn-outline-danger suspend-user waves-effect">Suspend</a> -->
-                    </div>
+
                     <div class="d-grid w-100 mt-4">
                         <form action="{{ route('admin.videos.updateStatus', $video) }}" method="POST">
                             @csrf
                             @method('PUT')
+
+                            <!-- <div class="input-group">
+                            <button class="btn btn-outline-primary waves-effect" type="submit">Change Status</button>
+                            <select class="form-select" id="inputGroupSelect03" id="status" name="status" aria-label="status">
+                            <option value="pending" @if ($video->state == 'pending') selected @endif>Pending</option>
+                                    <option value="round-1" @if ($video->state == 'round-1') selected @endif>Round 1</option>
+                                    <option value="round-2" @if ($video->state == 'round-2') selected @endif>Round 2</option>
+                                    <option value="rejected" @if ($video->state == 'rejected') selected @endif>Rejected</option>
+                            </select>
+                          </div> -->
                             <div class="form-group">
                                 <label for="status">Change Status:</label>
-                                <select class="form-control bootstrap-select dropdown-toggle" id="status" name="status">
+                                <select class="form-select" id="status" name="status">
                                     <option value="pending" @if ($video->state == 'pending') selected @endif>Pending</option>
                                     <option value="round-1" @if ($video->state == 'round-1') selected @endif>Round 1</option>
                                     <option value="round-2" @if ($video->state == 'round-2') selected @endif>Round 2</option>
                                     <option value="rejected" @if ($video->state == 'rejected') selected @endif>Rejected</option>
                                 </select>
                             </div>
-                            <button class="btn btn-primary waves-effect mt-1 waves-light w-100" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">Change Status</button>
+                            <button class="btn btn-primary waves-effect mt-1 waves-light w-100">Change Status</button>
                         </form>
 
 
@@ -113,7 +131,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <video width="100%" controls>
-                    <source src="{{ asset('storage/'.$video->file_path) }}" >
+                    <source src="{{ asset('storage/'.$video->file_path) }}">
                     Your browser does not support the video tag.
                 </video>
             </div>

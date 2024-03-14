@@ -48,6 +48,11 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
+    <style>
+        nav svg{
+            max-width: 25px !important;
+        }
+    </style>
     @yield('head')
   </head>
 

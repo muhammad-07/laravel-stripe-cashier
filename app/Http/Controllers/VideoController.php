@@ -47,15 +47,15 @@ class VideoController extends Controller
     }
 
     // Admin
-    public function updateState(Request $request, Video $video)
-    {
-        $validatedData = $request->validate([
-            'state' => 'required|in:round-1,round-2,rejected',
-        ]);
+    // public function updateState(Request $request, Video $video)
+    // {
+    //     $validatedData = $request->validate([
+    //         'state' => 'required|in:round-1,round-2,rejected',
+    //     ]);
 
-        $video->state = $validatedData['state'];
-        $video->save();
+    //     $video->state = $validatedData['state'];
+    //     $video->save();
 
-        return redirect()->back()->with('success', 'Video state updated successfully.');
-    }
+    //     return redirect()->back()->with('success', 'Video state updated successfully.');
+    // }
 }
