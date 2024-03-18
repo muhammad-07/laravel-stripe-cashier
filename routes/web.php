@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('/payment/{plan?}', [PaymentController::class, 'charge'])->name('goToPayment');
     Route::post('payment/process-payment/{plan?}', [PaymentController::class, 'processPayment'])->name('processPayment');
+
+    Route::resource('user-details', UserDetailController::class);
 
     Route::get('/upload-video', function () {
         return view('upload-video');

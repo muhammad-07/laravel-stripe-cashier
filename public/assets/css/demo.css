@@ -113,3 +113,11 @@
   text-align: center;
   margin-top: 1.25rem;
 }
+.invert
+ {
+    filter: invert(100%);
+ }
+.hue
+ {
+    filter: hue-rotate(116deg);
+ }

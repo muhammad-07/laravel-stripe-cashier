@@ -2,9 +2,7 @@
           <div class="app-brand demo">
             <a href="#" class="app-brand-link">
               <span class="app-brand-logo demo me-1">
-
                     <img src="{{ asset('images/logo-or.png') }}" width="190px" alt="{{ config('app.name', 'The United Production') }}">
-
               </span>
             </a>
 
