@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -55,7 +56,12 @@ class PaymentController extends Controller
                 // Other payment details you may want to store
             ]);
             Log::info($paymentRecord);
-            return redirect()->route('upload-video', ['plan' => $request->plan]);
+
+            if(UserDetail::where('user_id', Auth::user()->id)->exists())
+                return redirect()->route('upload-video', ['plan' => $request->plan]);
+            else
+                return redirect()->route('details', ['plan' => $request->plan]);
+
             // redirect('upload-video');
         } catch (\Exception $e) {
             return back()->withErrors(['message' => 'Error creating subscription. ' . $e->getMessage()]);

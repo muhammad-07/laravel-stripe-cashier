@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\VideoController;
+use App\Models\UserDetail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,14 +37,21 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('user-details', UserDetailController::class);
 
     Route::get('/upload-video', function () {
-        return view('upload-video');
+        if (UserDetail::where('user_id', Auth::user()->id)->exists())
+            return view('upload-video');
+        else
+            return view('details');
     })->name('upload-video');
     Route::post('/upload-video', [VideoController::class, 'upload'])->name('video.upload');
+
+
     Route::get('/thank-you', function () {
         return view('thanks');
     })->name('thank-you');
 });
 
+
+// ========== Admin ================
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/videos', [AdminVideoController::class, 'index'])->name('admin.videos.index');
     Route::put('/admin/videos/{video}/status', [AdminVideoController::class, 'updateStatus'])->name('admin.videos.updateStatus');

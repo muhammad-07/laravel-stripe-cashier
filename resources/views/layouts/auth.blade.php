@@ -50,8 +50,9 @@
 
 <body>
     <div class="position-relative">
+
         <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="justify-content-center col-6 d-flex">
+            <div class="justify-content-center d-flex {{$width ?? 'col-6'}}">
                 <div class="authentication-inner py-4">
                     <!-- Register Card -->
                     <div class="card p-2">

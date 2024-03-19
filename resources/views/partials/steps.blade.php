@@ -150,13 +150,27 @@
     .wizard .nav-tabs>li.disabled>a,
     .wizard .nav-tabs>li.disabled>a:hover,
     .wizard .nav-tabs>li.disabled>a:focus {
-        
+
         cursor: default;
-       
+
+    }
+
+    ul.nav.nav-tabs {
+        min-height: 100px;
+    }
+
+    .wizard .nav-tabs>li a i {
+        top: 40px
+    }
+
+    .wizard>div.wizard-inner {
+
+        margin-bottom: 0;
+
     }
 </style>
-<section class="signup-step-container">
-    
+<section class="signup-step-containerXXXX">
+
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">

@@ -26,16 +26,14 @@ class UserDetailController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            // Add validation rules for each field here
             'first_name' => 'required|string|max:255',
-            // Add validation rules for other fields here
         ]);
-
+        $validatedData['user_id'] = auth()->user()->id;
         // Create a new user detail with the validated data
         UserDetail::create($validatedData);
 
         // Redirect to the index page with success message
-        return redirect()->route('user-details')->with('success', 'User detail created successfully.');
+        return redirect()->route('upload-video')->with('success', 'User detail created successfully, Now upload your video.');
     }
 
     public function show(UserDetail $userDetail)
