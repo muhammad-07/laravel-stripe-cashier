@@ -34,20 +34,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/payment/{plan?}', [PaymentController::class, 'charge'])->name('goToPayment');
     Route::post('payment/process-payment/{plan?}', [PaymentController::class, 'processPayment'])->name('processPayment');
 
-    Route::resource('user-details', UserDetailController::class);
-
-    Route::get('/upload-video', function () {
-        if (UserDetail::where('user_id', Auth::user()->id)->exists())
-            return view('upload-video');
-        else
-            return view('details');
-    })->name('upload-video');
-    Route::post('/upload-video', [VideoController::class, 'upload'])->name('video.upload');
-
-
-    Route::get('/thank-you', function () {
-        return view('thanks');
-    })->name('thank-you');
+    Route::middleware('isPaid')->group(function () {
+        Route::resource('user-details', UserDetailController::class);
+        Route::get('/upload-video', function () {
+            if (UserDetail::where('user_id', Auth::user()->id)->exists())
+                return view('upload-video');
+            else
+                return view('details');
+        })->name('upload-video');
+        Route::post('/upload-video', [VideoController::class, 'upload'])->name('video.upload');
+        Route::get('/thank-you', function () {
+            return view('thanks');
+        })->name('thank-you');
+    });
 });
 
 

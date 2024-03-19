@@ -77,6 +77,10 @@
                                 {{ session('success') }}
                             </div>
                             @endif
+                            @if($form_title ?? null)
+                            <h4 class="mb-2">{{$form_title}}</h4>
+                            <p class="mb-4">{{$form_description}}</p>
+                            @endif
                             @yield('content')
 
                         </div>

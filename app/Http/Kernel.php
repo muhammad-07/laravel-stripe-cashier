@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\IsPaidMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // 'permission' => PermissionMiddleware::class,
-        'role' => RoleOrPermissionMiddleware::class
+        'role' => RoleOrPermissionMiddleware::class,
+        'isPaid' => IsPaidMiddleware::class
     ];
 }
