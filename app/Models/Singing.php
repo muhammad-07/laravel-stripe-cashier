@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserAdditionalDetail extends Model
+class Singing extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
+        'stagename',
         'why_tup_expectations',
         'why_we_select_you',
         'future_plan_if_win',

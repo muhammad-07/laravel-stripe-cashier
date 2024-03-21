@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_user_additional_details', function (Blueprint $table) {
+        Schema::create('singing', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('stagename')->nullable();
             $table->text('why_tup_expectations')->nullable();
             $table->text('why_we_select_you')->nullable();
             $table->text('future_plan_if_win')->nullable();
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_user_additional_details');
+        Schema::dropIfExists('singing');
     }
 };
