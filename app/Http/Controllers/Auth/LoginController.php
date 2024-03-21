@@ -80,7 +80,7 @@ class LoginController extends Controller
             if ($payment) {
                 return redirect()->route('upload-video', ['plan' => $payment->plan]);
             } else {
-                return redirect()->route('payment');
+                return redirect()->route('goToPayment', ['plan' => $payment->plan]);
             }
             return redirect('/home');
         }

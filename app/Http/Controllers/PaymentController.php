@@ -21,12 +21,14 @@ class PaymentController extends Controller
     {
 
         $user = Auth::user();
-        $inttt =  $user->createSetupIntent();
-        Log::info($inttt);
+
+        if(Payment::where('user_id', $user->id)->where('plan', $plan)->where('stripe_payment_id', '!=', '')->exists()) {
+            return redirect()->route('upload-video', ['plan' => $plan]);
+        }
         // session()->put('plan', $plan);
         return view('payment', [
             'user' => $user,
-            'intent' => $inttt,
+            'intent' => $user->createSetupIntent(),
             'product' => $plan,
             'price' => $this->price
         ]);
@@ -60,7 +62,7 @@ class PaymentController extends Controller
             if(UserDetail::where('user_id', Auth::user()->id)->exists())
                 return redirect()->route('upload-video', ['plan' => $request->plan]);
             else
-                return redirect()->route('details', ['plan' => $request->plan]);
+                return redirect()->route('upload-video', ['plan' => $request->plan]);
 
             // redirect('upload-video');
         } catch (\Exception $e) {

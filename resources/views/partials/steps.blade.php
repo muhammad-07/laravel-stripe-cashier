@@ -160,7 +160,7 @@
     }
 
     .wizard .nav-tabs>li a i {
-        top: 40px
+        top: 55px
     }
 
     .wizard>div.wizard-inner {
@@ -181,7 +181,7 @@
                             <li role="presentation" class="{{$active == 'registration' ? 'active' : 'disabled'}}">
                                 <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">✔ </span> <i>Sign up</i></a>
                             </li>
-                            <li role="presentation" class="{{$active == 'payment' ? 'active' : 'disabled'}}">
+                            <li role="presentation" class="{{$active == 'Payment' ? 'active' : 'disabled'}}">
                                 <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">✔</span> <i>Payment</i></a>
                             </li>
                             <li role="presentation" class="{{$active == 'details' ? 'active' : 'disabled'}}">

@@ -51,9 +51,16 @@
 <body>
     <div class="position-relative">
 
-        <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="pt-5">
+            @if($step ?? null)
+            @include('partials.steps', ['active' => $step])
+            @endif
+        </div>
+        <div class="authentication-wrapper authentication-basic container-p-y pt-0">
+
             <div class="justify-content-center d-flex {{$width ?? 'col-6'}}">
                 <div class="authentication-inner py-4">
+
                     <!-- Register Card -->
                     <div class="card p-2">
                         <!-- Logo -->

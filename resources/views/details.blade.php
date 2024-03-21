@@ -4,17 +4,42 @@
 @include('partials.steps', ['active' => 'details'])
 <h4 class="mb-2">Adventure starts here 🚀</h4>
 <p class="mb-4">Just one step away!</p>
-
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <form method="POST" action="{{ isset($userDetail) ? route('user-details.update', $userDetail->id) : route('user-details.store') }}">
     @csrf
     @if(isset($userDetail))
     @method('PUT')
     @endif
 
+    @php
+    $proviences = [
+    'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+
+    $how_know = [
+    'TV ads',
+    'Social Media',
+    'Newspaper ads',
+    'Outdoor ads',
+    'Others'
+    ];
+    @endphp
 
 
     <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="auditioncity" name="auditioncity" value="{{ old('auditioncity', isset($userDetail) ? $userDetail->auditioncity : '') }}" placeholder="Enter your audition city">
+        <select class="form-select" id="auditioncity" name="auditioncity">
+            <option value="" selected disabled>Select your audition city</option>
+            @foreach($proviences as $provience)
+            <option value="{{$provience}}" {{ old('auditioncity', isset($userDetail) ? $userDetail->auditioncity : '') == $provience ? 'selected' : '' }}>{{$provience}}</option>
+            @endforeach
+        </select>
         <label for="auditioncity">Audition City</label>
     </div>
     <div class="row">
@@ -83,7 +108,12 @@
 
         <div class="col-md-4">
             <div class="form-floating form-floating-outline mb-3">
-                <input type="text" class="form-control" id="state" name="state" value="{{ old('state', isset($userDetail) ? $userDetail->state : '') }}" placeholder="Enter your state">
+                <select class="form-select" id="state" name="state">
+                    <option value="" selected disabled>Select state</option>
+                    @foreach($proviences as $provience)
+                    <option value="{{$provience}}" {{ old('state', isset($userDetail) ? $userDetail->state : '') == $provience ? 'selected' : '' }}>{{$provience}}</option>
+                    @endforeach
+                </select>
                 <label for="state">State</label>
             </div>
         </div>
@@ -111,61 +141,88 @@
         </div>
     </div>
 
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="url" class="form-control" id="instagram" name="instagram" value="{{ old('instagram', isset($userDetail) ? $userDetail->instagram : '') }}" placeholder="Enter your Instagram link">
-        <label for="instagram">Instagram Link</label>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="url" class="form-control" id="instagram" name="instagram" value="{{ old('instagram', isset($userDetail) ? $userDetail->instagram : '') }}" placeholder="Enter your Instagram link">
+                <label for="instagram">Instagram Link</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="url" class="form-control" id="youtube" name="youtube" value="{{ old('youtube', isset($userDetail) ? $userDetail->youtube : '') }}" placeholder="Enter your YouTube link">
+                <label for="youtube">YouTube Link</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="url" class="form-control" id="facebook" name="facebook" value="{{ old('facebook', isset($userDetail) ? $userDetail->facebook : '') }}" placeholder="Enter your Facebook link">
+                <label for="facebook">Facebook Link</label>
+            </div>
+        </div>
+
     </div>
 
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="url" class="form-control" id="youtube" name="youtube" value="{{ old('youtube', isset($userDetail) ? $userDetail->youtube : '') }}" placeholder="Enter your YouTube link">
-        <label for="youtube">YouTube Link</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="url" class="form-control" id="facebook" name="facebook" value="{{ old('facebook', isset($userDetail) ? $userDetail->facebook : '') }}" placeholder="Enter your Facebook link">
-        <label for="facebook">Facebook Link</label>
-    </div>
 
     <!-- Guardian Information -->
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-firstname" name="g-firstname" value="{{ old('g-firstname', isset($userDetail) ? $userDetail->g_firstname : '') }}" placeholder="Enter guardian's first name">
-        <label for="g-firstname">Guardian's First Name</label>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-firstname" name="g-firstname" value="{{ old('g-firstname', isset($userDetail) ? $userDetail->g_firstname : '') }}" placeholder="Enter guardian's first name">
+                <label for="g-firstname">Guardian's First Name</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-lastname" name="g-lastname" value="{{ old('g-lastname', isset($userDetail) ? $userDetail->g_lastname : '') }}" placeholder="Enter guardian's last name">
+                <label for="g-lastname">Guardian's Last Name</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="tel" class="form-control" id="g-phone" name="g-phone" value="{{ old('g-phone', isset($userDetail) ? $userDetail->g_phone : '') }}" placeholder="Enter guardian's phone number">
+                <label for="g-phone">Guardian's Phone</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-address" name="g-address" value="{{ old('g-address', isset($userDetail) ? $userDetail->g_address : '') }}" placeholder="Enter guardian's address">
+                <label for="g-address">Guardian's Address</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-postalcode" name="g-postalcode" value="{{ old('g-postalcode', isset($userDetail) ? $userDetail->g_postalcode : '') }}" placeholder="Enter guardian's postal code">
+                <label for="g-postalcode">Guardian's Postal Code</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-city" name="g-city" value="{{ old('g-city', isset($userDetail) ? $userDetail->g_city : '') }}" placeholder="Enter guardian's city">
+                <label for="g-city">Guardian's City</label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="text" class="form-control" id="g-state" name="g-state" value="{{ old('g-state', isset($userDetail) ? $userDetail->g_state : '') }}" placeholder="Enter guardian's state">
+                <label for="g-state">Guardian's State</label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating form-floating-outline mb-3">
+                <input type="email" class="form-control" id="g-email" name="g-email" value="{{ old('g-email', isset($userDetail) ? $userDetail->g_email : '') }}" placeholder="Enter guardian's email">
+                <label for="g-email">Guardian's Email</label>
+            </div>
+        </div>
     </div>
 
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-lastname" name="g-lastname" value="{{ old('g-lastname', isset($userDetail) ? $userDetail->g_lastname : '') }}" placeholder="Enter guardian's last name">
-        <label for="g-lastname">Guardian's Last Name</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-address" name="g-address" value="{{ old('g-address', isset($userDetail) ? $userDetail->g_address : '') }}" placeholder="Enter guardian's address">
-        <label for="g-address">Guardian's Address</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-city" name="g-city" value="{{ old('g-city', isset($userDetail) ? $userDetail->g_city : '') }}" placeholder="Enter guardian's city">
-        <label for="g-city">Guardian's City</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-state" name="g-state" value="{{ old('g-state', isset($userDetail) ? $userDetail->g_state : '') }}" placeholder="Enter guardian's state">
-        <label for="g-state">Guardian's State</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="text" class="form-control" id="g-postalcode" name="g-postalcode" value="{{ old('g-postalcode', isset($userDetail) ? $userDetail->g_postalcode : '') }}" placeholder="Enter guardian's postal code">
-        <label for="g-postalcode">Guardian's Postal Code</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="tel" class="form-control" id="g-phone" name="g-phone" value="{{ old('g-phone', isset($userDetail) ? $userDetail->g_phone : '') }}" placeholder="Enter guardian's phone number">
-        <label for="g-phone">Guardian's Phone</label>
-    </div>
-
-    <div class="form-floating form-floating-outline mb-3">
-        <input type="email" class="form-control" id="g-email" name="g-email" value="{{ old('g-email', isset($userDetail) ? $userDetail->g_email : '') }}" placeholder="Enter guardian's email">
-        <label for="g-email">Guardian's Email</label>
-    </div>
 
     <div class="form-floating form-floating-outline mb-3">
         <textarea class="form-control" id="education" name="education" rows="3">{{ old('education', isset($userDetail) ? $userDetail->education : '') }}</textarea>
@@ -213,9 +270,14 @@
     </div>
 
     <div class="form-floating form-floating-outline mb-3">
-        <textarea class="form-control" id="how_know_about_auditions" name="how_know_about_auditions" rows="3">{{ old('how_know_about_auditions', isset($userDetail) ? $userDetail->how_know_about_auditions : '') }}</textarea>
+        <select class="form-select" id="state" name="state">
+            @foreach($how_know as $hw)
+            <option value="{{$hw}}" {{ old('how_know_about_auditions', isset($userDetail) ? $userDetail->how_know_about_auditions : '') == $hw ? 'selected' : '' }}>{{$hw}}</option>
+            @endforeach
+        </select>
         <label for="how_know_about_auditions">How did you know about auditions?</label>
     </div>
+
 
     <div class="form-floating form-floating-outline mb-3">
         <textarea class="form-control" id="how_know_about_auditions_detail" name="how_know_about_auditions_detail" rows="3">{{ old('how_know_about_auditions_detail', isset($userDetail) ? $userDetail->how_know_about_auditions_detail : '') }}</textarea>
@@ -226,6 +288,74 @@
         <input type="file" class="form-control" id="photo" name="photo">
         <label for="photo">Photo</label>
     </div>
+
+
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="why_tup_expectations" name="why_tup_expectations" rows="3">{{ old('why_tup_expectations', isset($userDetail) ? $userDetail->why_tup_expectations : '') }}</textarea>
+        <label for="why_tup_expectations">Why do you have expectations from Sa Re Ga Ma Pa?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="why_we_select_you" name="why_we_select_you" rows="3">{{ old('why_we_select_you', isset($userDetail) ? $userDetail->why_we_select_you : '') }}</textarea>
+        <label for="why_we_select_you">Why should we select you?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="future_plan_if_win" name="future_plan_if_win" rows="3">{{ old('future_plan_if_win', isset($userDetail) ? $userDetail->future_plan_if_win : '') }}</textarea>
+        <label for="future_plan_if_win">What are your future plans if you win?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="opinion_new_season_tup" name="opinion_new_season_tup" rows="3">{{ old('opinion_new_season_tup', isset($userDetail) ? $userDetail->opinion_new_season_tup : '') }}</textarea>
+        <label for="opinion_new_season_tup">What's your opinion on the new season of Sa Re Ga Ma Pa?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="written_composed_song_inspiration" name="written_composed_song_inspiration" rows="3">{{ old('written_composed_song_inspiration', isset($userDetail) ? $userDetail->written_composed_song_inspiration : '') }}</textarea>
+        <label for="written_composed_song_inspiration">Have you written/composed any song? What's the inspiration behind it?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="life_changing_incident" name="life_changing_incident" rows="3">{{ old('life_changing_incident', isset($userDetail) ? $userDetail->life_changing_incident : '') }}</textarea>
+        <label for="life_changing_incident">Share a life-changing incident you've experienced.</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="change_about_self_love_about_self" name="change_about_self_love_about_self" rows="3">{{ old('change_about_self_love_about_self', isset($userDetail) ? $userDetail->change_about_self_love_about_self : '') }}</textarea>
+        <label for="change_about_self_love_about_self">What would you like to change about yourself and what do you love about yourself?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="unique_qualities" name="unique_qualities" rows="3">{{ old('unique_qualities', isset($userDetail) ? $userDetail->unique_qualities : '') }}</textarea>
+        <label for="unique_qualities">Share your unique qualities.</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="main_goal_difficulties" name="main_goal_difficulties" rows="3">{{ old('main_goal_difficulties', isset($userDetail) ? $userDetail->main_goal_difficulties : '') }}</textarea>
+        <label for="main_goal_difficulties">What are your main goals and what difficulties have you faced in achieving them?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="biggest_strength_support" name="biggest_strength_support" rows="3">{{ old('biggest_strength_support', isset($userDetail) ? $userDetail->biggest_strength_support : '') }}</textarea>
+        <label for="biggest_strength_support">What's your biggest strength and what support do you have?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="favorite_judge_why" name="favorite_judge_why" rows="3">{{ old('favorite_judge_why', isset($userDetail) ? $userDetail->favorite_judge_why : '') }}</textarea>
+        <label for="favorite_judge_why">Who's your favorite judge and why?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="role_model_inspiration" name="role_model_inspiration" rows="3">{{ old('role_model_inspiration', isset($userDetail) ? $userDetail->role_model_inspiration : '') }}</textarea>
+        <label for="role_model_inspiration">Who's your role model and what inspires you about them?</label>
+    </div>
+
+    <div class="form-floating form-floating-outline mb-3">
+        <textarea class="form-control" id="prepared_songs" name="prepared_songs" rows="3">{{ old('prepared_songs', isset($userDetail) ? $userDetail->prepared_songs : '') }}</textarea>
+        <label for="prepared_songs">What songs are you prepared to perform?</label>
+    </div>
+
 
 
 
