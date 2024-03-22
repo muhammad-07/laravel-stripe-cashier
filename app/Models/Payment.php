@@ -11,12 +11,16 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'stripe_payment_id',
-        'plan'
+        'plan_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 
 }

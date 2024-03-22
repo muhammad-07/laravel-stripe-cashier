@@ -31,8 +31,8 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
             $table->string('facebook')->nullable();
-            $table->string('parent_first_name')->nullable();
-            $table->string('parent_last_name')->nullable();
+            $table->string('g_first_name')->nullable();
+            $table->string('g_last_name')->nullable();
             $table->string('g_address')->nullable();
             $table->string('g_city')->nullable();
             $table->string('g_state')->nullable();
@@ -42,14 +42,14 @@ return new class extends Migration
             $table->string('education')->nullable();
             $table->string('occupation')->nullable();
             $table->string('work_experience')->nullable();
-            $table->string('genre_of_singing')->nullable();
-            $table->string('previous_performance')->nullable();
-            $table->string('music_experience')->nullable();
-            $table->string('music_qualification')->nullable();
+            // $table->string('genre_of_singing')->nullable();
+            // $table->string('previous_performance')->nullable();
+            // $table->string('music_experience')->nullable();
+            // $table->string('music_qualification')->nullable();
             $table->string('hobbies')->nullable();
             $table->text('describe_yourself')->nullable();
-            $table->string('how_know_about_auditions')->nullable();
-            $table->string('how_know_about_auditions_detail')->nullable();
+            // $table->string('how_know_about_auditions')->nullable();
+            // $table->string('how_know_about_auditions_detail')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
 

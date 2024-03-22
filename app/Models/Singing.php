@@ -10,6 +10,7 @@ class Singing extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'plan_id',
         'stagename',
         'why_tup_expectations',
         'why_we_select_you',
@@ -23,11 +24,17 @@ class Singing extends Model
         'biggest_strength_support',
         'favorite_judge_why',
         'role_model_inspiration',
-        'prepared_songs'
+        'prepared_songs',
+        'how_know_about_auditions',
+        'how_know_about_auditions_detail'
     ];
 
     // User model relationship
     function user(){
         return $this->belongsTo(User::class);
+    }
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 }

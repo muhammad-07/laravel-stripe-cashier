@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Plan;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,21 @@ class PaymentController extends Controller
     {
         $this->price = env('price', 10);
     }
+    function plan_id($plan)
+    {
+        $plan_id = Plan::where('name', $plan)->first()->id ?? null;
+        if (!$plan_id) {
+            // print_r($plan_id);die;
+            return redirect()->route('home')->with('error', 'Plan not found');
+        }
+        return $plan_id;
+    }
     public function charge(String $plan)
     {
 
         $user = Auth::user();
-
-        if(Payment::where('user_id', $user->id)->where('plan', $plan)->where('stripe_payment_id', '!=', '')->exists()) {
+        $plan_id = $this->plan_id($plan);
+        if (Payment::where('user_id', $user->id)->where('plan_id', $plan_id)->where('stripe_payment_id', '!=', '')->exists()) {
             return redirect()->route('upload-video', ['plan' => $plan]);
         }
         // session()->put('plan', $plan);
@@ -36,8 +46,9 @@ class PaymentController extends Controller
 
     public function processPayment(Request $request, $plan)
     {
-    //    dd($plan, 'test', $request->plan);
+        //    dd($plan, 'test', $request->plan);
         $user = Auth::user();
+        $plan_id = $this->plan_id($plan);
         $paymentMethod = $request->input('payment_method');
         $user->createOrGetStripeCustomer();
         $user->addPaymentMethod($paymentMethod);
@@ -51,15 +62,15 @@ class PaymentController extends Controller
             // Get the payment ID from the returned object
             $paymentId = $payment->id;
 
+
             // Create or update the payment record in your database
-            $paymentRecord = Payment::updateOrCreate(['stripe_payment_id' => $paymentId, 'plan' => $request->plan], [
+            $paymentRecord = Payment::updateOrCreate(['stripe_payment_id' => $paymentId, 'plan_id' => $plan_id], [
                 'user_id' => $user->id,
-                'plan' => $request->plan
-                // Other payment details you may want to store
+                'plan_id' => $plan_id
             ]);
             Log::info($paymentRecord);
 
-            if(UserDetail::where('user_id', Auth::user()->id)->exists())
+            if (UserDetail::where('user_id', Auth::user()->id)->exists())
                 return redirect()->route('upload-video', ['plan' => $request->plan]);
             else
                 return redirect()->route('upload-video', ['plan' => $request->plan]);

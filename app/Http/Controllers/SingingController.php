@@ -10,10 +10,13 @@ class SingingController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'why_saregamapa_expectations' => 'nullable|string|max:255',
+            'auditioncity' => 'required',
+            'plan' => 'required',
+            'stagename' => 'nullable|string|max:255',
+            'why_tup_expectations' => 'nullable|string|max:255',
             'why_we_select_you' => 'nullable|string|max:255',
             'future_plan_if_win' => 'nullable|string|max:255',
-            'opinion_new_season_saregamapa' => 'nullable|string|max:255',
+            'opinion_new_season_tup' => 'nullable|string|max:255',
             'written_composed_song_inspiration' => 'nullable|string|max:255',
             'life_changing_incident' => 'nullable|string|max:255',
             'change_about_self_love_about_self' => 'nullable|string|max:255',
@@ -23,6 +26,8 @@ class SingingController extends Controller
             'favorite_judge_why' => 'nullable|string|max:255',
             'role_model_inspiration' => 'nullable|string|max:255',
             'prepared_songs' => 'nullable|string|max:255',
+            'how_know_about_auditions' => 'required|max:255',
+            'how_know_about_auditions_details' => 'nullable|string|max:255',
         ]);
 
         // Create or update user details

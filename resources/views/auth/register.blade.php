@@ -80,7 +80,7 @@
 <!-- <h4 class="mb-2">Adventure starts here 🚀</h4>
 <p class="mb-4">You can do it!</p> -->
 
-<form id="formAuthentication" class="mb-3" action="{{ route('register') }}">
+<form method="POST" id="formAuthentication" class="mb-3" action="{{ route('register') }}">
     <div class="form-floating form-floating-outline mb-3">
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Enter your name" autofocus />
         <label for="name">{{ __('Name') }}</label>

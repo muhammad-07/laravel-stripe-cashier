@@ -27,50 +27,53 @@ class UserDetailController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
 
-            'auditioncity' => 'required|string|max:255',
+            // 'auditioncity' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
-            // 'last_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             // 'stagename' => 'nullable|string|max:255',
-            // 'sex' => 'required|in:male,female,other',
-            // 'relationship_status' => 'required|in:single,married',
-            // 'dob' => 'required|date',
-            // 'address' => 'required|string|max:255',
-            // 'city' => 'required|string|max:255',
-            // 'state' => 'required|string|max:255',
-            // 'postalcode' => 'required|string|max:20',
-            // 'phone' => 'required|string|max:20',
-            // 'education' => 'nullable|string',
-            // 'occupation' => 'nullable|string',
-            // 'work_experience' => 'nullable|string',
+            'sex' => 'required|in:male,female,other',
+            'relationship_status' => 'required|in:single,married',
+            'dob' => 'required|date',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'postalcode' => 'required|string|max:20',
+            'phone' => 'required|string|max:20',
+            'education' => 'nullable|string',
+            'occupation' => 'nullable|string',
+            'work_experience' => 'nullable|string',
             // 'genre_of_singing' => 'nullable|string',
             // 'previous_performance' => 'nullable|string',
             // 'music_experience' => 'nullable|string',
             // 'music_qualification' => 'nullable|string',
-            // 'hobbies' => 'nullable|string',
-            // 'describe_yourself' => 'nullable|string',
-            // 'instagram' => 'nullable|url',
-            // 'youtube' => 'nullable|url',
-            // 'facebook' => 'nullable|url',
+            'hobbies' => 'nullable|string',
+            'describe_yourself' => 'nullable|string',
+            'instagram' => 'nullable|url',
+            'youtube' => 'nullable|url',
+            'facebook' => 'nullable|url',
 
-            // 'g-firstname' => 'required|string|max:255',
-            // 'g-lastname' => 'required|string|max:255',
-            // 'g-address' => 'required|string|max:255',
-            // 'g-city' => 'required|string|max:255',
-            // 'g-state' => 'required|string|max:255',
-            // 'g-postalcode' => 'required|string|max:20',
-            // 'g-phone' => 'required|string|max:20',
-            // 'g-email' => 'required|email|max:255',
+            'g_first_name' => 'required|string|max:255',
+            'g_last_name' => 'required|string|max:255',
+            'g_address' => 'required|string|max:255',
+            'g_city' => 'required|string|max:255',
+            'g_state' => 'required|string|max:255',
+            'g_postalcode' => 'required|string|max:20',
+            'g_phone' => 'required|string|max:20',
+            'g_email' => 'required|email|max:255',
 
-            // 'how_know_about_auditions' => 'nullable|string',
-            // 'how_know_about_auditions_detail' => 'nullable|string',
-            // 'photo' => 'nullable|image|max:11264|mimes:jpeg,png,jpg,gif,svg',
+            'photo' => 'nullable|image|max:11264|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $validatedData['user_id'] = auth()->user()->id;
         // Create a new user detail with the validated data
-        UserDetail::create($validatedData);
 
-        // Redirect to the index page with success message
+        UserDetail::updateOrCreate(
+            ['user_id' => $validatedData['user_id']],
+            $validatedData
+        );
+
+
         return redirect()->route('upload-video')->with('success', 'User detail created successfully, Now upload your video.');
+        // return redirect()->route('upload-video')->with('success', 'User detail created successfully, Now upload your video.');
     }
 
     public function show(UserDetail $userDetail)

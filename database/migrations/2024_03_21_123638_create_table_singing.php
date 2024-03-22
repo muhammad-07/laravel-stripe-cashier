@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('singing', function (Blueprint $table) {
+        Schema::create('singings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('plan_id');
             $table->string('stagename')->nullable();
+            $table->string('auditioncity');
             $table->text('why_tup_expectations')->nullable();
             $table->text('why_we_select_you')->nullable();
             $table->text('future_plan_if_win')->nullable();
@@ -28,9 +30,12 @@ return new class extends Migration
             $table->text('favorite_judge_why')->nullable();
             $table->text('role_model_inspiration')->nullable();
             $table->text('prepared_songs')->nullable();
+                   $table->string('how_know_about_auditions')->nullable();
+            $table->string('how_know_about_auditions_detail')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
         });
     }
 
@@ -39,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('singing');
+        Schema::dropIfExists('singings');
     }
 };

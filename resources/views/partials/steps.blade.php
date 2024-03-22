@@ -184,11 +184,14 @@
                             <li role="presentation" class="{{$active == 'Payment' ? 'active' : 'disabled'}}">
                                 <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">✔</span> <i>Payment</i></a>
                             </li>
-                            <li role="presentation" class="{{$active == 'details' ? 'active' : 'disabled'}}">
-                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">✔</span> <i>Add details</i></a>
+                            <li role="presentation" class="{{$active == 'Profile' ? 'active' : 'disabled'}}">
+                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">✔</span> <i>Profile details</i></a>
+                            </li>
+                            <li role="presentation" class="{{$active == 'Audition' ? 'active' : 'disabled'}}">
+                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">✔</span> <i>Audition details</i></a>
                             </li>
                             <li role="presentation" class="{{$active == 'upload' ? 'active' : 'disabled'}}">
-                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">✔</span> <i>Upload Video</i></a>
+                                <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab"><span class="round-tab">✔</span> <i>Upload Video</i></a>
                             </li>
                         </ul>
                     </div>

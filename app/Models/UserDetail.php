@@ -11,7 +11,7 @@ class UserDetail extends Model
 
     protected $fillable = [
         'user_id',
-        'audition_city',
+        // 'audition_city',
         'first_name',
         'last_name',
         'stage_name',
@@ -28,8 +28,8 @@ class UserDetail extends Model
         'instagram',
         'youtube',
         'facebook',
-        'parent_first_name',
-        'parent_last_name',
+        'g_firstname',
+        'g_last_name',
         'g_address',
         'g_city',
         'g_state',

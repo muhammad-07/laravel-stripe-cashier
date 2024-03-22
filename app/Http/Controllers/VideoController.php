@@ -29,14 +29,15 @@ class VideoController extends Controller
             $fileName = uniqid() . '.' . $videoFile->getClientOriginalExtension();
             $oname = $videoFile->getClientOriginalName();
 
-            $plan = Payment::where('user_id', $user->id)->where('stripe_payment_id', '!=', '')->first()->plan ?? "";
+            $plan = Payment::where('user_id', $user->id)->where('stripe_payment_id', '!=', '')->first() ?? "";
             // Save the video file to the storage disk
             // $plan =  session()->get('plan') ?? $request->plan;
-            $path = $videoFile->storeAs('videos/'.$plan, $fileName, 'public');
+            $path = $videoFile->storeAs('videos/'.$plan->name, $fileName, 'public');
 
             // Create a new Video model instance
             $video = new Video();
             $video->user_id = $user->id;
+            $video->stripe_payment_id = $plan->stripe_payment_id;
             $video->file_path = $path;
             $video->original_name = $oname;
             $video->title = $request->videoTitle;
@@ -49,5 +50,5 @@ class VideoController extends Controller
         return redirect()->back()->withErrors(['message' => 'No video file found.'])->withInput();
     }
 
-    
+
 }

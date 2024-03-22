@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -32,7 +33,18 @@ class UserSeeder extends Seeder
             'email_verified_at' => date('Y-m-d h:i:s'),
             'password' => bcrypt('password'),
         ]);
-
         $user->assignRole('admin');
+
+        $plans = Plan::create([
+            'name' => 'SingTUV2024',
+            'is_active' => 1,
+            'price' => '10'
+        ]);
+        Log::info("insert seed".$plans->id ?? 0000);
+        $plans = Plan::create([
+            'name' => 'DanceTUV2023',
+            'is_active' => 0,
+            'price' => '999.99'
+        ]);
     }
 }
