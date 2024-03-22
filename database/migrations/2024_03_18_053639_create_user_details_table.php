@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('relationship_status')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->integer('age')->nullable();
+            // $table->integer('age')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();

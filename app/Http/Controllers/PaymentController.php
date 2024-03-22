@@ -21,17 +21,22 @@ class PaymentController extends Controller
     function plan_id($plan)
     {
         $plan_id = Plan::where('name', $plan)->first()->id ?? null;
-        if (!$plan_id) {
-            // print_r($plan_id);die;
-            return redirect()->route('home')->with('error', 'Plan not found');
-        }
+        // if (!$plan_id) {
+        //     // print_r($plan_id);die;
+        //     return false;
+        // }
         return $plan_id;
     }
     public function charge(String $plan)
     {
 
         $user = Auth::user();
+
         $plan_id = $this->plan_id($plan);
+        if (!$plan_id) {
+            // print_r($plan_id);die;
+            return redirect()->route('home')->with('error', 'Plan not found #995');
+        }
         if (Payment::where('user_id', $user->id)->where('plan_id', $plan_id)->where('stripe_payment_id', '!=', '')->exists()) {
             return redirect()->route('upload-video', ['plan' => $plan]);
         }

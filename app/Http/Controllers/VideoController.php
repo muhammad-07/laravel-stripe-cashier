@@ -3,12 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Plan;
+use App\Models\Singing;
+use App\Models\UserDetail;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class VideoController extends Controller
 {
+    public function index(Request $request)
+    {
+
+        $plan_id = Plan::where('name', $request->plan)->first()->id ?? null;
+
+
+        if ($request->has('step') && $request->step == 'profile') {
+            $userDetail = UserDetail::where('user_id', Auth::id())->first();
+
+            return view('details', compact('userDetail'));
+        } else if ($request->has('step') && $request->step == 'audition') {
+
+            $userDetail = Singing::where('user_id', Auth::id())->where('plan_id', '=', $plan_id)->first();
+            // dd
+            return view('singing', compact('userDetail'));
+        } else {
+            $user_id = Auth::id();
+            $plan = Payment::where('user_id', $user_id)->where('stripe_payment_id', '!=', '')->first()->plan_id ?? '';
+            $hasUserDetails = UserDetail::where('user_id', $user_id)->exists();
+            $hasSinging = Singing::where('user_id', $user_id)->where('plan_id', $plan)->exists();
+            if ($hasUserDetails && $hasSinging)
+                return view('upload-video');
+            else if ($hasUserDetails) {
+                $userDetail = Singing::where('user_id', Auth::id())->where('plan_id', '=', $plan_id)->first();
+                return view('singing', compact('userDetail'));
+
+            }
+        }
+
+        $userDetail = UserDetail::where('user_id', Auth::id())->first();
+        return view('details', compact('userDetail'));
+    }
     public function upload(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,7 +68,7 @@ class VideoController extends Controller
             $plan = Payment::where('user_id', $user->id)->where('stripe_payment_id', '!=', '')->first() ?? "";
             // Save the video file to the storage disk
             // $plan =  session()->get('plan') ?? $request->plan;
-            $path = $videoFile->storeAs('videos/'.$plan->name, $fileName, 'public');
+            $path = $videoFile->storeAs('videos/' . $plan->name, $fileName, 'public');
 
             // Create a new Video model instance
             $video = new Video();
@@ -49,6 +85,4 @@ class VideoController extends Controller
 
         return redirect()->back()->withErrors(['message' => 'No video file found.'])->withInput();
     }
-
-
 }

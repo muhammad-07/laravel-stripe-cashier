@@ -173,7 +173,7 @@
 
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="wizard">
                     <div class="wizard-inner">
                         <div class="connecting-line"></div>
@@ -184,11 +184,11 @@
                             <li role="presentation" class="{{$active == 'Payment' ? 'active' : 'disabled'}}">
                                 <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">✔</span> <i>Payment</i></a>
                             </li>
-                            <li role="presentation" class="{{$active == 'Profile' ? 'active' : 'disabled'}}">
-                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">✔</span> <i>Profile details</i></a>
+                            <li role="presentation" class="{{$active == 'Profile' ? 'active' : ''}}">
+                                <a href="{{$active == 'Profile' ? '#' : '?step=profile'}}" data-toggle="tab" aria-controls="step3" role="tab"><span class="round-tab">✔</span> <i>Profile details</i></a>
                             </li>
-                            <li role="presentation" class="{{$active == 'Audition' ? 'active' : 'disabled'}}">
-                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">✔</span> <i>Audition details</i></a>
+                            <li role="presentation" class="{{$active == 'Audition' ? 'active' : ''}}">
+                                <a href="{{$active == 'Audition' ? '#' : '?step=audition'}}" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">✔</span> <i>Audition details</i></a>
                             </li>
                             <li role="presentation" class="{{$active == 'upload' ? 'active' : 'disabled'}}">
                                 <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab"><span class="round-tab">✔</span> <i>Upload Video</i></a>

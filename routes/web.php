@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminVideoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SingingController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\VideoController;
 use App\Models\Payment;
@@ -38,19 +39,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::middleware('isPaid')->group(function () {
         Route::resource('user-details', UserDetailController::class);
-        Route::get('/upload-video/{plan?}', function () {
-            $user_id = Auth::id();
-            $plan = Payment::where('user_id', $user_id)->where('stripe_payment_id', '!=', '')->first()->plan_id ?? '';
-            $hasUserDetails = UserDetail::where('user_id', $user_id)->exists();
-            $hasSinging = Singing::where('user_id', $user_id)->where('plan_id', $plan)->exists();
-            if ($hasUserDetails && $hasSinging)
-                return view('upload-video');
-            else if($hasUserDetails)
-                return view('singing');
-
-                return view('details');
-
-        })->name('upload-video');
+        Route::resource('singing', SingingController::class);
+        Route::get('/upload-video/{plan?}', [VideoController::class, 'index'])->name('upload-video');
         Route::post('/upload-video', [VideoController::class, 'upload'])->name('video.upload');
         Route::get('/thank-you', function () {
             return view('thanks');

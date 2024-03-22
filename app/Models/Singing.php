@@ -9,6 +9,7 @@ class Singing extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'auditioncity',
         'user_id',
         'plan_id',
         'stagename',
