@@ -35,21 +35,26 @@ class SingingController extends Controller
             'auditioncity' => 'required',
             // 'plan' => 'required',
             'stagename' => 'nullable|string|max:255',
-            'why_tup_expectations' => 'nullable|string|max:255',
-            'why_we_select_you' => 'nullable|string|max:255',
-            'future_plan_if_win' => 'nullable|string|max:255',
-            'opinion_new_season_tup' => 'nullable|string|max:255',
-            'written_composed_song_inspiration' => 'nullable|string|max:255',
-            'life_changing_incident' => 'nullable|string|max:255',
-            'change_about_self_love_about_self' => 'nullable|string|max:255',
-            'unique_qualities' => 'nullable|string|max:255',
-            'main_goal_difficulties' => 'nullable|string|max:255',
-            'biggest_strength_support' => 'nullable|string|max:255',
-            'favorite_judge_why' => 'nullable|string|max:255',
-            'role_model_inspiration' => 'nullable|string|max:255',
-            'prepared_songs' => 'nullable|string|max:255',
-            'how_know_about_auditions' => 'required|max:255',
-            'how_know_about_auditions_details' => 'nullable|string|max:255',
+            'why_tup_expectations' => 'nullable|string|max:5000',
+            'why_we_select_you' => 'nullable|string|max:5000',
+            'future_plan_if_win' => 'nullable|string|max:5000',
+            'opinion_new_season_tup' => 'nullable|string|max:5000',
+            'written_composed_song_inspiration' => 'nullable|string|max:5000',
+            'life_changing_incident' => 'nullable|string|max:5000',
+            'change_about_self_love_about_self' => 'nullable|string|max:5000',
+            'unique_qualities' => 'nullable|string|max:5000',
+            'main_goal_difficulties' => 'nullable|string|max:5000',
+            'biggest_strength_support' => 'nullable|string|max:5000',
+            'favorite_judge_why' => 'nullable|string|max:5000',
+            'role_model_inspiration' => 'nullable|string|max:5000',
+            'prepared_songs' => 'nullable|string|max:5000',
+            'how_know_about_auditions' => 'required|max:5000',
+            'how_know_about_auditions_details' => 'nullable|string|max:5000',
+
+            'genre_of_singing' => 'nullable|string|max:300',
+            'previous_performance' => 'nullable|string|max:5000',
+            'music_experience' => 'nullable|string|max:5000',
+            'music_qualification' => 'nullable|string|max:5000',
         ]);
         $plan_id = $this->plan_id($plan);
         if (!$plan_id) {
@@ -66,7 +71,7 @@ class SingingController extends Controller
             $validatedData
         );
 
-        return redirect()->route('upload-video')->with('success', 'User detail created successfully, Now upload your video.');
+        return redirect()->route('upload-video')->with('success', 'Audition details created successfully, Now you can upload your video.');
     }
 
     public function show(Singing $userDetail)
@@ -87,29 +92,34 @@ class SingingController extends Controller
         $validatedData = $request->validate([
             'auditioncity' => 'required',
             // 'plan' => 'required',
-            'stagename' => 'nullable|string|max:255',
-            'why_tup_expectations' => 'nullable|string|max:255',
-            'why_we_select_you' => 'nullable|string|max:255',
-            'future_plan_if_win' => 'nullable|string|max:255',
-            'opinion_new_season_tup' => 'nullable|string|max:255',
-            'written_composed_song_inspiration' => 'nullable|string|max:255',
-            'life_changing_incident' => 'nullable|string|max:255',
-            'change_about_self_love_about_self' => 'nullable|string|max:255',
-            'unique_qualities' => 'nullable|string|max:255',
-            'main_goal_difficulties' => 'nullable|string|max:255',
-            'biggest_strength_support' => 'nullable|string|max:255',
-            'favorite_judge_why' => 'nullable|string|max:255',
-            'role_model_inspiration' => 'nullable|string|max:255',
-            'prepared_songs' => 'nullable|string|max:255',
-            'how_know_about_auditions' => 'required|max:255',
-            'how_know_about_auditions_details' => 'nullable|string|max:255',
+            'stagename' => 'nullable|string|max:5000',
+            'why_tup_expectations' => 'nullable|string|max:5000',
+            'why_we_select_you' => 'nullable|string|max:5000',
+            'future_plan_if_win' => 'nullable|string|max:5000',
+            'opinion_new_season_tup' => 'nullable|string|max:5000',
+            'written_composed_song_inspiration' => 'nullable|string|max:5000',
+            'life_changing_incident' => 'nullable|string|max:5000',
+            'change_about_self_love_about_self' => 'nullable|string|max:5000',
+            'unique_qualities' => 'nullable|string|max:5000',
+            'main_goal_difficulties' => 'nullable|string|max:5000',
+            'biggest_strength_support' => 'nullable|string|max:5000',
+            'favorite_judge_why' => 'nullable|string|max:5000',
+            'role_model_inspiration' => 'nullable|string|max:5000',
+            'prepared_songs' => 'nullable|string|max:5000',
+            'how_know_about_auditions' => 'required|max:5000',
+            'how_know_about_auditions_details' => 'nullable|string|max:5000',
+
+            'genre_of_singing' => 'nullable|string|max:300',
+            'previous_performance' => 'nullable|string|max:5000',
+            'music_experience' => 'nullable|string|max:5000',
+            'music_qualification' => 'nullable|string|max:5000',
         ]);
 
         // Update the user detail with the validated data
         $userDetail->update($validatedData);
 
         // Redirect to the index page with success message
-        return redirect()->route('singing')->with('success', 'User detail updated successfully.');
+        return redirect()->route('upload-video')->with('success', 'Audition details updated successfully, Now you can upload your video.');
     }
 
     public function destroy(Singing $userDetail)
@@ -118,6 +128,6 @@ class SingingController extends Controller
         $userDetail->delete();
 
         // Redirect to the index page with success message
-        return redirect()->route('singing')->with('success', 'User detail deleted successfully.');
+        return redirect()->route('singing')->with('success', 'Audition details updated successfully, Now you can upload your video.');
     }
 }

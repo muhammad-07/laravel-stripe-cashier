@@ -27,7 +27,12 @@ class Singing extends Model
         'role_model_inspiration',
         'prepared_songs',
         'how_know_about_auditions',
-        'how_know_about_auditions_detail'
+        'how_know_about_auditions_detail',
+
+        'genre_of_singing',
+        'previous_performance',
+        'music_experience',
+        'music_qualification'
     ];
 
     // User model relationship

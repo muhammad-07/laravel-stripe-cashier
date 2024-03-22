@@ -26,7 +26,7 @@ class VideoController extends Controller
         } else if ($request->has('step') && $request->step == 'audition') {
 
             $userDetail = Singing::where('user_id', Auth::id())->where('plan_id', '=', $plan_id)->first();
-            // dd
+            
             return view('singing', compact('userDetail'));
         } else {
             $user_id = Auth::id();

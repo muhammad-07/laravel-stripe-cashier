@@ -30,8 +30,18 @@ return new class extends Migration
             $table->text('favorite_judge_why')->nullable();
             $table->text('role_model_inspiration')->nullable();
             $table->text('prepared_songs')->nullable();
-                   $table->string('how_know_about_auditions')->nullable();
+            $table->string('how_know_about_auditions')->nullable();
             $table->string('how_know_about_auditions_detail')->nullable();
+
+            $table->string('genre_of_singing')->nullable();
+            $table->text('previous_performance')->nullable();
+            $table->text('music_experience')->nullable();
+            $table->text('music_qualification')->nullable();
+
+
+        
+
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

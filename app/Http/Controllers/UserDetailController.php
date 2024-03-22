@@ -24,7 +24,7 @@ class UserDetailController extends Controller
 
     public function store(Request $request)
     {
-        
+
         // Validate the request data
         $validatedData = $request->validate([
 
@@ -43,10 +43,7 @@ class UserDetailController extends Controller
             'education' => 'nullable|string',
             'occupation' => 'nullable|string',
             'work_experience' => 'nullable|string',
-            // 'genre_of_singing' => 'nullable|string',
-            // 'previous_performance' => 'nullable|string',
-            // 'music_experience' => 'nullable|string',
-            // 'music_qualification' => 'nullable|string',
+       
             'hobbies' => 'nullable|string',
             'describe_yourself' => 'nullable|string',
             'instagram' => 'nullable|url',
