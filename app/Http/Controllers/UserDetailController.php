@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserDetail;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class UserDetailController extends Controller
@@ -59,15 +60,27 @@ class UserDetailController extends Controller
             'g_phone' => 'required|string|max:20',
             'g_email' => 'required|email|max:255',
 
-            'photo' => 'nullable|image|max:11264|mimes:jpeg,png,jpg,gif,svg',
+            'photo' => 'image|max:11264|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $validatedData['user_id'] = auth()->user()->id;
-        // Create a new user detail with the validated data
 
+        $path = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+
+            // Generate a unique name for the video file
+            $fileName = uniqid() . '.' . $photo->getClientOriginalExtension();
+            // $oname = $photo->getClientOriginalName();
+            $path = $photo->storeAs('profile/', $fileName, 'public');
+        }
+
+        $validatedData['photo'] = $path;
         UserDetail::updateOrCreate(
             ['user_id' => $validatedData['user_id']],
             $validatedData
         );
+
+
 
 
         return redirect()->route('upload-video', ['plan' => $request->plan])->with('success', 'User detail created successfully. #199');
@@ -128,7 +141,17 @@ class UserDetailController extends Controller
             'photo' => 'nullable|image|max:11264|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
+        $path = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
 
+            // Generate a unique name for the video file
+            $fileName = uniqid() . '.' . $photo->getClientOriginalExtension();
+            // $oname = $photo->getClientOriginalName();
+            $path = $photo->storeAs('profile/', $fileName, 'public');
+        }
+
+        $validatedData['photo'] = $path;
         // Update the user detail with the validated data
         $userDetail->update($validatedData);
 

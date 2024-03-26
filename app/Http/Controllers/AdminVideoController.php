@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,14 @@ class AdminVideoController extends Controller
     }
     public function show(Video $video)
     {
+        $video->auditionDetails = $video->auditionDetails();
         return view('admin.show', compact('video'));
+    }
+
+    public function user($user_id)
+    {
+        $user = User::where('id', $user_id)->with('details')->first();
+        return view('admin.users.show', compact('user'));
     }
 
     public function updateStatus(Request $request, Video $video)

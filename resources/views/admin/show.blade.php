@@ -59,12 +59,27 @@
                             <span class="h6">Upload Time:</span>
                             <span>{{ $video->created_at->format('Y-m-d H:i:s') }}</span>
                         </li>
+
+
+                        <li class="mb-3">
+                            <span class="h6">StageName:</span>
+                            <span>{{$video->auditionDetails->stagename}}</span>
+                        </li>
+                        <li class="mb-3">
+                            <span class="h6">Audition city:</span>
+                            <span>{{$video->auditionDetails->auditioncity}}</span>
+                        </li>
+                        <li class="mb-3">
+                            <span class="h6">Music Experience:</span>
+                            <span>{{$video->auditionDetails->music_experience}}</span>
+                        </li>
+
                     </ul>
                     <hr/>
                     <ul class="list-unstyled mb-4">
                         <li class="mb-3">
                             <span class="h6">Contestant Name:</span>
-                            <span>{{ $video->user->name }}</span>
+                            <span><a href="{{ route('admin.users.show', $video->user) }}"> {{ $video->user->name }} </a></span>
                         </li>
                         <li class="mb-3">
                             <span class="h6">Email:</span>
