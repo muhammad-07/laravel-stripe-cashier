@@ -9,7 +9,6 @@ class AdminVideoController extends Controller
 {
     public function index(Request $request)
     {
-
         $query = Video::with('user');
 
         if (empty($request->submit)) {

@@ -68,11 +68,11 @@
                         </li>
                         <li class="mb-3">
                             <span class="h6">Email:</span>
-                            <span>$video->user->email</span>
+                            <span>{{$video->user->email}}</span>
                         </li>
                         <li class="mb-3">
                             <span class="h6">Status:</span>
-                            <span class="badge bg-label-success rounded-pill">{{$video->state}}</span>
+                            <span class="badge bg-label-success rounded-pill text-uppercase">{{$video->state}}</span>
                         </li>
 
 
