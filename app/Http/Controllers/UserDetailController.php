@@ -43,7 +43,7 @@ class UserDetailController extends Controller
             'education' => 'nullable|string',
             'occupation' => 'nullable|string',
             'work_experience' => 'nullable|string',
-       
+
             'hobbies' => 'nullable|string',
             'describe_yourself' => 'nullable|string',
             'instagram' => 'nullable|url',

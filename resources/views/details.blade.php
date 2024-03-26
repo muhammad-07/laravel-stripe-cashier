@@ -13,7 +13,7 @@
     </ul>
 </div>
 @endif
-<form method="POST" action="{{ isset($userDetail) ? route('user-details.update', $userDetail->id) : route('user-details.store') }}">
+<form method="POST" action="{{ isset($userDetail) ? route('user-details.update', $userDetail->id) : route('user-details.store') }}" enctype="multipart/form-data">
     @csrf
     @if(isset($userDetail))
     @method('PUT')

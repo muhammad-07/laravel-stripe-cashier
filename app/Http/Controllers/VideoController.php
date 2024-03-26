@@ -77,6 +77,7 @@ class VideoController extends Controller
             // Create a new Video model instance
             $video = new Video();
             $video->user_id = $user->id;
+            $video->plan_id = $plan->plan_id;
             $video->stripe_payment_id = $plan->stripe_payment_id;
             $video->file_path = $path;
             $video->original_name = $oname;

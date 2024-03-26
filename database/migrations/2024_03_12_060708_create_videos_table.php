@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('plan_id')->nullable();
             $table->string('stripe_payment_id')->nullable();
             $table->string('file_path');
             $table->string('original_name')->nullable();
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();;
             $table->enum('state', ['pending', 'round-1', 'round-2', 'rejected'])->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
             $table->timestamps();
         });
     }

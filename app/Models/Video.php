@@ -12,6 +12,7 @@ class Video extends Model
 
     protected $fillable = [
         'user_id',
+        'plan_id',
         'stripe_payment_id',
         'file_path',
         'original_name',
@@ -23,6 +24,11 @@ class Video extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
     }
 }
 
